@@ -7,7 +7,8 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+    canIUse: false
   },
 
   onLoad: function() {
@@ -31,10 +32,27 @@ Page({
               })
             }
           })
+        }else{
+          this.setData({
+            canIUse: true
+          })
         }
       }
     })
   },
+    bindGetUserInfo: function(e) {
+        console.log(e.detail.userInfo)
+        if (e.detail.userInfo){
+            //用户按了允许授权按钮
+            this.setData({
+              canIUse: false,
+              avatarUrl: e.detail.userInfo.avatarUrl,
+              userInfo: e.detail.userInfo
+            })
+        } else {
+            //用户按了拒绝按钮
+        }
+    },
 
   onGetUserInfo: function(e) {
     if (!this.logged && e.detail.userInfo) {
@@ -81,7 +99,7 @@ Page({
         })
 
         const filePath = res.tempFilePaths[0]
-        
+
         // 上传图片
         const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
         wx.cloud.uploadFile({
@@ -93,7 +111,7 @@ Page({
             app.globalData.fileID = res.fileID
             app.globalData.cloudPath = cloudPath
             app.globalData.imagePath = filePath
-            
+
             wx.navigateTo({
               url: '../storageConsole/storageConsole'
             })

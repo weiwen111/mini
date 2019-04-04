@@ -1,0 +1,5 @@
+<template name="notice">
+    <i-notice-bar icon="systemprompt" loop>
+        {{noticeMsg}}
+    </i-notice-bar>
+</template>

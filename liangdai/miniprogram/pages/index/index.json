@@ -1,3 +1,10 @@
 {
-  "usingComponents": {}
+  "component": true,
+  
+  "usingComponents": {
+    "i-button":"../../dist/button/index",
+    "i-notice-bar":"../../dist/notice-bar/index",
+    "i-panel":"../../dist/panel/index",
+    "i-card":"../../dist/card/index"
+  }
 }
