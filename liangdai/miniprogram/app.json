@@ -15,5 +15,6 @@
     "navigationBarTitleText": "莲代",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "cloud": true
 }
