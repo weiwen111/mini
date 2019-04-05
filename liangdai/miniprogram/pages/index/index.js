@@ -135,4 +135,10 @@ Page({
     })
   },
 
+  goMgr:function(){
+    wx.navigateTo({
+      url: '../manager/manager',
+    })
+  }
+
 })

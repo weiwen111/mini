@@ -1,0 +1,42 @@
+<!--index.wxml-->
+<view class="container">
+
+
+
+  <!-- 上传图片-->
+  <view class="uploader">
+    <view class="uploader-text" bindtap="doUpload">
+      <text>上传图片</text>
+    </view>
+    <view class="uploader-container" wx:if="{{imgUrl}}">
+      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{step === 'add'}}">
+
+</view>
+
+<view wx:if="{{step === 'view'}}">
+
+</view>
+
+<view wx:if="{{step === 'list'}}">
+  <view class="userinfo">
+    <i-button type="success" shape="circle" size="large" bindtap='addProduct'>添加商品</i-button>
+  </view>
+
+  <i-card full title="卡片标题" extra="额外内容" thumb="https://i.loli.net/2017/08/21/599a521472424.jpg">
+    <view slot="content">内容不错</view>
+    <view slot="footer">尾部内容</view>
+  </i-card>
+  <i-card full title="卡片标题" extra="额外内容" thumb="https://i.loli.net/2017/08/21/599a521472424.jpg">
+    <view slot="content">内容不错</view>
+    <view slot="footer">尾部内容</view>
+  </i-card>
+  <i-card full title="卡片标题" extra="额外内容" thumb="https://i.loli.net/2017/08/21/599a521472424.jpg">
+    <view slot="content">内容不错</view>
+    <view slot="footer">尾部内容</view>
+  </i-card>
+</view>

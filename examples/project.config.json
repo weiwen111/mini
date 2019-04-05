@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.9.98",
 	"appid": "wx7def8d2e5f621e29",
-	"projectname": "iview-weapp",
+	"projectname": "examples",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
