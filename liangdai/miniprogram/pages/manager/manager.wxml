@@ -1,21 +1,21 @@
-<!--index.wxml-->
-<view class="container">
-
-
-
-  <!-- 上传图片-->
-  <view class="uploader">
-    <view class="uploader-text" bindtap="doUpload">
-      <text>上传图片</text>
-    </view>
-    <view class="uploader-container" wx:if="{{imgUrl}}">
-      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
-    </view>
-  </view>
-</view>
-
 <view wx:if="{{step === 'add'}}">
+    <i-panel title="基础用法">
+        <i-input value="{{ p_name }}" bind:change="getPname" title="名称" autofocus placeholder="名称"/>
+        <i-input value="{{ p_price }}" bind:change="getPprice"  type="number" title="价格" placeholder="价格"/>
+        <i-input value="{{ p_type }}" disabled bindtap="selectType" title="分类" placeholder="分类"/>
 
+        <i-action-sheet visible="{{ visible1 }}" actions="{{ pType }}" show-cancel bind:cancel="handleCancel1"
+                        bind:click="handleClickItem1"/>
+
+    </i-panel>
+    <!-- 上传图片-->
+    <view class="uploader">
+        <i-button bindtap="doUpload" inline type="primary">+图片</i-button>
+        <view class="uploader-container" wx:if="{{p_image}}">
+            <image class="uploader-image" src="{{p_image}}" mode="aspectFit" bindtap="previewImg"></image>
+        </view>
+    </view>
+    <i-button bindtap="onAdd" inline type="primary">添加</i-button>
 </view>
 
 <view wx:if="{{step === 'view'}}">
@@ -23,20 +23,16 @@
 </view>
 
 <view wx:if="{{step === 'list'}}">
-  <view class="userinfo">
-    <i-button type="success" shape="circle" size="large" bindtap='addProduct'>添加商品</i-button>
-  </view>
+    <view class="userinfo">
+        <i-button type="success" shape="circle" size="large" bindtap='addProduct'>添加商品</i-button>
+    </view>
 
-  <i-card full title="卡片标题" extra="额外内容" thumb="https://i.loli.net/2017/08/21/599a521472424.jpg">
-    <view slot="content">内容不错</view>
-    <view slot="footer">尾部内容</view>
-  </i-card>
-  <i-card full title="卡片标题" extra="额外内容" thumb="https://i.loli.net/2017/08/21/599a521472424.jpg">
-    <view slot="content">内容不错</view>
-    <view slot="footer">尾部内容</view>
-  </i-card>
-  <i-card full title="卡片标题" extra="额外内容" thumb="https://i.loli.net/2017/08/21/599a521472424.jpg">
-    <view slot="content">内容不错</view>
-    <view slot="footer">尾部内容</view>
-  </i-card>
+
+    <i-card full wx:for="{{queryResult}}" title="{{item.name}}" extra="{{item.price}}"
+            thumb="{{item.image}}">
+        <view slot="content">{{item.type}}</view>
+        <view slot="footer">尾部内容</view>
+    </i-card>
+
+
 </view>
