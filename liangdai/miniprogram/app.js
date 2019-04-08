@@ -8,7 +8,9 @@ App({
             {id: "fd", name: "粉底"},
             {id: "kh", name: "口红"},
             {id: "jdy", name: "肌底液"},
-            {id: "fs", name: "防晒"},]
+            {id: "fs", name: "防晒"},],
+        notice: "这是莲莲的小程序",
+        checked: true
     },
     onLaunch: function () {
 
