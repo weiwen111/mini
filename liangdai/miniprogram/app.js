@@ -10,7 +10,9 @@ App({
             {id: "jdy", name: "肌底液"},
             {id: "fs", name: "防晒"},],
         notice: "这是莲莲的小程序",
-        checked: true
+        checked: true,
+        cart: {},
+        cartCount: 0
     },
     onLaunch: function () {
 

@@ -6,6 +6,11 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
+.demo-container{
+  width:50vw;
+  height: 100vh;
+  background:#fff;
+}
 
 .userinfo, .uploader, .tunnel {
   margin-top: 40rpx;

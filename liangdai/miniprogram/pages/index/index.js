@@ -9,7 +9,10 @@ Page({
         takeSession: false,
         requestResult: '',
         canIUse: false,
-        queryResult:[]
+        productList:[],
+        cart:{},
+        cartCount:0,
+        showLeft:false
     },
 
     onLoad: function () {
@@ -59,7 +62,7 @@ Page({
                     app.globalData.noticeID = res.data[0]._id
                 }
                 that.setData({
-                    // queryResult: JSON.stringify(res.data, null, 2)
+                    // productList: JSON.stringify(res.data, null, 2)
                     notice: app.globalData.notice,
                     checked: app.globalData.checked
                 })
@@ -82,8 +85,8 @@ Page({
         }).get({
             success: res => {
                 this.setData({
-                    // queryResult: JSON.stringify(res.data, null, 2)
-                    queryResult: res.data
+                    // productList: JSON.stringify(res.data, null, 2)
+                    productList: res.data
                 })
                 console.log('[数据库] [查询记录] 成功: ', res)
             },
@@ -108,6 +111,12 @@ Page({
         } else {
             //用户按了拒绝按钮
         }
+    },
+    goPage:function (res) {
+        const url= res.target.dataset.url
+        wx.navigateTo({
+            url: url,
+        })
     },
 
     onGetUserInfo: function (e) {
@@ -140,15 +149,22 @@ Page({
             }
         })
     },
-    setNumber(event) {
+    addCart(event) {
+        const product = this.data.productList[event.target.id]
+        if(app.globalData.cart[product._id] == null){
+            app.globalData.cart[product._id] = product
+            app.globalData.cart[product._id].quantnum = 0
+        }
+        app.globalData.cart[product._id].quantnum +=1
+        app.globalData.cartCount += 1
         this.setData({
-            [`queryResult[${event.target.id}].quantnum`]: this.data.quantnum
+            cartCount: app.globalData.cartCount
         })
     },
-    handleChange1 ({ detail }) {
+    toggleLeft() {
         this.setData({
-            quantnum: detail.value
-        })
+            showLeft: !this.data.showLeft
+        });
     },
 
     // 上传图片

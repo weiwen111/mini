@@ -8,11 +8,44 @@
     <!--<view wx:else>请升级微信版本</view>-->
 
     <view wx:if="{{!canIUse}}">
+        <i-tab-bar current="{{ current }}" bindchange="toggleLeft">
+            <i-tab-bar-item key="homepage" icon="homepage" current-icon="homepage_fill" bind:change="toggleLeft"
+                            title="Home"></i-tab-bar-item>
+            <i-tab-bar-item key="remind" icon="remind" current-icon="remind_fill" count="{{cartCount}}"
+                            title="Notice"></i-tab-bar-item>
+        </i-tab-bar>
+
+        <!--<i-button bind:click="toggleLeft1" type="ghost">左边弹出1</i-button>-->
+        <i-drawer mode="left" visible="{{showLeft}}" bind:close="toggleLeft">
+            <view class="demo-container">
+                <i-panel class="cell-panel-demo" title="">
+                    <i-cell title="管理页面" data-url="../manager/manager" bindtap="goPage" value="">
+                        <i-icon type="like_fill" slot="icon"/>
+                    </i-cell>
+                </i-panel>
+                <i-panel class="cell-panel-demo" title="">
+                    <i-cell title="订单管理" value="">
+                        <i-icon type="like_fill" slot="icon"/>
+                    </i-cell>
+                </i-panel>
+                <i-panel class="cell-panel-demo" title="">
+                    <i-cell title="我的订单" value="">
+                        <i-icon type="like_fill" slot="icon"/>
+                    </i-cell>
+                </i-panel>
+                <i-panel class="cell-panel-demo" title="">
+                    <i-cell title="购物车" data-url="../cart/cart" bindtap="goPage" value="">
+                        <i-icon type="like_fill" slot="icon"/>
+                    </i-cell>
+                </i-panel>
+            </view>
+        </i-drawer>
         <!-- 通知栏 -->
         <view wx:if="{{checked}}">
             <import src="../template/template.wxml"/>
             <template is="notice" data="{{noticeMsg:notice}}"/>
         </view>
+
         <!-- 用户 openid -->
         <view wx:if="{{canIUse}}" class="userinfo">
             <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
@@ -22,15 +55,12 @@
             </view>
         </view>
 
-        <i-button type='success' shape="circle" size='large' bindtap='goMgr'>管理页面</i-button>
 
-        <i-card full wx:for="{{queryResult}}" title="{{item.name}}" extra="{{item.price}}"
+        <i-card full wx:for="{{productList}}" title="{{item.name}}" extra="{{item.price}}"
                 thumb="{{item.image}}">
-            <view slot="content">{{item.type}}</view>
-            <view slot="footer">尾部内容
-                <view style="padding: 16px">
-                    <i-input-number bindtap='setNumber' id='{{index}}' value="{{ item.quantnum? item.quantnum:0 }}"
-                                    min="0" max="100" bindchange="handleChange1"/>
+            <view slot="footer">{{item.type}}
+                <view style="float:right">
+                    <i-icon type="add" size="28" id="{{ index }}" bindtap="addCart" color="#80848f"></i-icon>
                 </view>
             </view>
         </i-card>
