@@ -1,0 +1,48 @@
+<view wx:if="{{step === 'add'}}">
+    <i-panel title="基础用法">
+        <i-input value="{{ p_name }}" bind:change="getPname" title="名称" autofocus placeholder="名称"/>
+        <i-input value="{{ p_price }}" bind:change="getPprice" type="number" title="价格" placeholder="价格"/>
+        <i-input value="{{ p_type }}" disabled bindtap="selectType" title="分类" placeholder="分类"/>
+
+        <i-action-sheet visible="{{ visible1 }}" actions="{{ pType }}" show-cancel bind:cancel="handleCancel1"
+                        bind:click="handleClickItem1"/>
+
+    </i-panel>
+    <!-- 上传图片-->
+    <view class="uploader">
+        <i-button bindtap="doUpload" inline type="primary">+图片</i-button>
+        <view class="uploader-container" wx:if="{{p_image}}">
+            <image class="uploader-image" src="{{p_image}}" mode="aspectFit" bindtap="previewImg"></image>
+        </view>
+    </view>
+    <i-button bindtap="onAdd" inline type="primary">添加</i-button>
+</view>
+
+<view wx:if="{{step === 'view'}}">
+
+</view>
+
+<view wx:if="{{step === 'notice'}}">
+    <i-panel title="基础用法">
+        <i-input value="{{ notice }}" bind:change="getNotice" autofocus type="textarea" title="通告"
+                 placeholder="请输入通告(最多50字)" maxlength="50"/>
+        <i-radio value="启用" checked="{{checked}}" bindchange="handleNotice"></i-radio>
+    </i-panel>
+    <i-button bindtap="resetNotice" inline type="primary">添加</i-button>
+</view>
+
+<view wx:if="{{step === 'list'}}">
+    <view class="userinfo">
+        <i-button type="success" inline bindtap='toProduct'>添加商品</i-button>
+        <i-button type="primary" inline bindtap="toNotice">通告</i-button>
+    </view>
+
+
+    <i-card full wx:for="{{queryResult}}" title="{{item.name}}" extra="{{item.price}}"
+            thumb="{{item.image}}">
+        <view slot="content">{{item.type}}</view>
+        <view slot="footer">尾部内容</view>
+    </i-card>
+
+
+</view>
