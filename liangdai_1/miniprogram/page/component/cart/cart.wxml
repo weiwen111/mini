@@ -1,14 +1,15 @@
+<wxs module="filter" src="../../common/utils.wxs"></wxs>
 <view class="main">
     <view wx:if="{{hasList}}">
         <view class="cart-box">
             <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}">
                 <icon wx:if="{{item.selected}}" type="success" color="red" data-index="{{index}}"  class="cart-pro-select" bindtap="selectList"/>
                 <icon wx:else type="circle" class="cart-pro-select" data-index="{{index}}" bindtap="selectList"/>
-                <navigator url="../details/details?id={{item.id}}"><image class="cart-thumb" src="{{item.image}}"></image></navigator>
-                <text class="cart-pro-name">{{item.title}}</text>
+                <navigator url="../details/details?id={{filter.jsonToUrlParam(item)}}"><image class="cart-thumb" src="{{item.image}}"></image></navigator>
+                <text class="cart-pro-name">{{item.name}}</text>
                 <text class="cart-pro-price">￥{{item.price}}</text>
                 <view class="cart-count-box">
-                    <text class="cart-count-down" bindtap="minusCount" data-obj="{{obj}}" data-index="{{index}}">-</text>
+                    <text class="cart-count-down" bindtap="minusCount"  data-index="{{index}}">-</text>
                     <text class="cart-count-num">{{item.num}}</text>
                     <text class="cart-count-add" bindtap="addCount" data-index="{{index}}">+</text>
                 </view>

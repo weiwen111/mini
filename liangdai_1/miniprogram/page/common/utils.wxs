@@ -1,0 +1,12 @@
+var filter = {
+    numberToFix: function (value) {
+        return value.toFixed(1)
+    },
+    jsonToUrlParam: function (obj) {
+        return encodeURIComponent(JSON.stringify(obj))
+    }
+}
+module.exports = {
+    numberToFix: filter.numberToFix,
+    jsonToUrlParam: filter.jsonToUrlParam
+}

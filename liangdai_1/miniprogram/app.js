@@ -1,6 +1,9 @@
 //app.js
 App({
     globalData: {
+        avatarUrl: "/image/user-unlogin.png",
+        nickName: "陌生莲子",
+        openid: null,
         pType: [{id: "jh", name: "精华"},
             {id: "ys", name: "眼霜"},
             {id: "sfs", name: "爽肤水"},

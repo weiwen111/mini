@@ -1,3 +1,4 @@
+<wxs module="filter" src="../common/utils.wxs"></wxs>
 <view class="main">
 <!--    <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
         <block wx:for="{{imgUrls}}" wx:key="{{index}}">
@@ -38,7 +39,7 @@
         <view class="newest-title"><text>最近新品</text></view>
         <view class="newest-box">
             <view class="newest-list" wx:for="{{productList}}">
-                <navigator url="details/details?id={{item._id}}">
+                <navigator url="details/details?id={{filter.jsonToUrlParam(item)}}">
                     <image src="{{item.image}}"></image>
                     <view class="newest-text"><text>{{item.name}}</text></view>
                     <view class="newest-text"><text>￥ {{item.price}}</text></view>

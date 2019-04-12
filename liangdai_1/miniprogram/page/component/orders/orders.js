@@ -1,56 +1,111 @@
 // page/component/orders/orders.js
+const app = getApp()
 Page({
-  data:{
-    address:{},
-    hasAddress: false,
-    total:0,
-    orders:[
-        {id:1,title:'新鲜芹菜 半斤',image:'/image/s5.png',num:4,price:0.01},
-        {id:2,title:'素米 500g',image:'/image/s6.png',num:1,price:0.03}
-      ]
-  },
+    data: {
+        address: {},
+        hasAddress: false,
+        total: 0,
+        comment: "",
+        products: []
+    },
 
-  onReady() {
-    this.getTotalPrice();
-  },
-  
-  onShow:function(){
-    const self = this;
-    wx.getStorage({
-      key:'address',
-      success(res) {
-        self.setData({
-          address: res.data,
-          hasAddress: true
+    onReady() {
+        const cartA = app.globalData.cart
+        const list = []
+        for (var k in cartA) {
+            if (cartA[k].selected) {
+                list.push(cartA[k])
+            }
+        }
+        this.setData({
+            products: list
         })
-      }
-    })
-  },
+        this.getTotalPrice();
+    },
 
-  /**
-   * 计算总价
-   */
-  getTotalPrice() {
-    let orders = this.data.orders;
-    let total = 0;
-    for(let i = 0; i < orders.length; i++) {
-      total += orders[i].num * orders[i].price;
+    onShow: function () {
+        const self = this;
+        wx.getStorage({
+            key: 'address',
+            success(res) {
+                self.setData({
+                    address: res.data,
+                    hasAddress: true
+                })
+            }
+        })
+    },
+
+    /**
+     * 计算总价
+     */
+    getTotalPrice() {
+        let products = this.data.products;
+        let total = 0;
+        for (let i = 0; i < products.length; i++) {
+            total += products[i].num * products[i].price;
+        }
+        this.setData({
+            total: total
+        })
+    },
+    getComment({detail}) {
+        const val = detail.detail.value;
+        this.setData({
+            comment: val
+        });
+    },
+    toPay() {
+        wx.showModal({
+            title: '提示',
+            content: '本系统只做演示，支付系统已屏蔽',
+            text: 'center',
+            complete() {
+                wx.switchTab({
+                    url: '/page/component/user/user'
+                })
+            }
+        })
+    },
+    toOrder() {
+        const products = encodeURIComponent(JSON.stringify(this.data.products))
+        const comment = this.data.comment
+        const createTimes = Date.parse(new Date());
+
+        const db = wx.cloud.database()
+        db.collection('order').add({
+            data: {
+                avatarUrl: app.globalData.avatarUrl,
+                nickName: app.globalData.nickName,
+                address: "",
+                products: products,
+                comment: comment,
+                createTimes: createTimes
+            },
+            success: res => {
+                // 在返回结果中会包含新创建的记录的 _id
+                this.setData({
+                    counterId: res._id
+                })
+                wx.showModal({
+                    title: '提示',
+                    content: '下单成功',
+                    text: 'center',
+                    complete() {
+                        wx.switchTab({
+                            url: '/page/component/user/user'
+                        })
+                    }
+                })
+                console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+            },
+            fail: err => {
+                wx.showToast({
+                    icon: 'none',
+                    title: '新增记录失败'
+                })
+                console.error('[数据库] [新增记录] 失败：', err)
+            }
+        })
     }
-    this.setData({
-      total: total
-    })
-  },
-
-  toPay() {
-    wx.showModal({
-      title: '提示',
-      content: '本系统只做演示，支付系统已屏蔽',
-      text:'center',
-      complete() {
-        wx.switchTab({
-          url: '/page/component/user/user'
-        })
-      }
-    })
-  }
 })

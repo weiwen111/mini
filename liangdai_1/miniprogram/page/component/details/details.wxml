@@ -5,7 +5,7 @@
         <navigator open-type="switchTab" url="../cart/cart">
             <view class="carts-icon {{scaleCart?'on':''}}">
                 <image src="/image/cart2.png"></image>
-                <text class="carts-icon-num" wx:if="{{hasCarts}}">{{totalNum}}</text>
+                <text class="carts-icon-num" wx:if="{{hasCarts}}">{{cartCount}}</text>
             </view>
         </navigator>
         
@@ -17,7 +17,7 @@
         </view>
         <image wx:if="{{show}}" src="/image/cart1.png" class="to-carts-icon"></image>
         <view class="goods-stock">{{product.stock}}</view>
-        <view class="goods-title">{{product.title}}</view>
+        <view class="goods-title">{{product.name}}</view>
         <view class="goods-price">￥ {{product.price}}</view>
     </view>
     <view class="goods-tab-box">

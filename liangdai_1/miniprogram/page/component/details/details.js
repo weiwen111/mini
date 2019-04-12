@@ -1,46 +1,42 @@
 // page/component/details/details.js
+const app = getApp()
 Page({
     data: {
-        goods: {
-            id: 1,
-            image: '/image/goods1.png',
-            title: '新鲜梨花带雨',
-            price: 0.01,
-            stock: '有货',
-            detail: '这里是梨花带雨详情。',
-            parameter: '125g/个',
-            service: '不支持退货'
-        },
-        product:{},
+        product: {},
         num: 1,
-        totalNum: 0,
+        cartCount: 0,
         hasCarts: false,
         curIndex: 0,
         show: false,
         scaleCart: false
     },
     onLoad: function (option) {
-        const id = option.id
-        const db = wx.cloud.database()
-        // 查询当前用户所有的 counters
-        db.collection('product').where({
-            _id: id
-        }).get({
-            success: res => {
-                this.setData({
-                    // queryResult: JSON.stringify(res.data, null, 2)
-                    product: res.data[0]
-                })
-                console.log('[数据库] [查询记录] 成功: ', res)
-            },
-            fail: err => {
-                wx.showToast({
-                    icon: 'none',
-                    title: '查询记录失败'
-                })
-                console.error('[数据库] [查询记录] 失败：', err)
-            }
+        const product = JSON.parse(decodeURIComponent(option.id))
+        this.setData({
+            product: product,
+            cartCount: app.globalData.cartCount,
+            hasCarts: (app.globalData.cartCount > 0 ? true : false)
         })
+        /*       const db = wx.cloud.database()
+               // 查询当前用户所有的 counters
+               db.collection('product').where({
+                   _id: id
+               }).get({
+                   success: res => {
+                       this.setData({
+                           // queryResult: JSON.stringify(res.data, null, 2)
+                           product: res.data[0]
+                       })
+                       console.log('[数据库] [查询记录] 成功: ', res)
+                   },
+                   fail: err => {
+                       wx.showToast({
+                           icon: 'none',
+                           title: '查询记录失败'
+                       })
+                       console.error('[数据库] [查询记录] 失败：', err)
+                   }
+               })*/
     },
 
     addCount() {
@@ -54,7 +50,17 @@ Page({
     addToCart() {
         const self = this;
         const num = this.data.num;
-        let total = this.data.totalNum;
+        let total = app.globalData.cartCount
+        app.globalData.cartCount += num
+
+        const cart = app.globalData.cart
+        const id = self.data.product._id
+        if (!cart[id]) {
+            cart[id] = self.data.product
+            cart[id].num = 0
+            cart[id].selected = true
+        }
+        cart[id].num += num
 
         self.setData({
             show: true
@@ -68,7 +74,7 @@ Page({
                 self.setData({
                     scaleCart: false,
                     hasCarts: true,
-                    totalNum: num + total
+                    cartCount: num + total
                 })
             }, 200)
         }, 300)
