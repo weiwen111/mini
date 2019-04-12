@@ -6,6 +6,16 @@
     </view>
     <view class="address-box">
         <view class="address-manage">
+            <navigator url="/page/component/manager/manager">产品管理</navigator>
+        </view>
+    </view>
+    <view class="address-box" wx:if="{{false}}">
+        <view class="address-manage">
+            <navigator url="/page/component/ordermgr/ordermgr">订单管理</navigator>
+        </view>
+    </view>
+    <view class="address-box">
+        <view class="address-manage">
             <navigator url="/page/component/address/address">地址管理</navigator>
         </view>
         <view wx:if="{{hasAddress}}" class="address-list">
