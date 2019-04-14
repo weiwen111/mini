@@ -213,3 +213,26 @@ checkbox, radio{
 .section__ctn{
 
 }
+
+.note_item text{
+    display: -webkit-box;
+    font-size:28rpx;
+    color:#000000;
+    line-height: 40rpx;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:1;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.note2_item text{
+    display: block;
+    font-size:28rpx;
+    color:#000000;
+    line-height: 40rpx;
+    height: 120rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}

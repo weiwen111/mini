@@ -17,10 +17,14 @@ Page({
             list.push(cartA[k])
         }
 
-        this.setData({
-            hasList: true,
-            carts: list
-        });
+        if (list.length > 0) {
+            this.setData({
+                hasList: true,
+                carts: list
+            });
+        }
+
+
         this.getTotalPrice();
     },
     /**

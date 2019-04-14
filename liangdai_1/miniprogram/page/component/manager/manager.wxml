@@ -1,21 +1,29 @@
+<wxs module="filter" src="../../common/utils.wxs"></wxs>
 <view wx:if="{{step === 'add'}}">
     <i-panel title="基础用法">
-        <i-input value="{{ p_name }}" bind:change="getPname" title="名称" autofocus placeholder="名称"/>
-        <i-input value="{{ p_price }}" bind:change="getPprice" type="number" title="价格" placeholder="价格"/>
-        <i-input value="{{ p_type }}" disabled bindtap="selectType" title="分类" placeholder="分类"/>
+        <i-input value="{{ product.name }}" bind:change="getPname" title="名称" autofocus placeholder="名称"/>
+        <i-input value="{{ product.price }}" bind:change="getPprice" type="number" title="价格" placeholder="价格"/>
+        <i-input value="{{ product.type }}" disabled bindtap="selectType" title="分类" placeholder="分类"/>
 
         <i-action-sheet visible="{{ visible1 }}" actions="{{ pType }}" show-cancel bind:cancel="handleCancel1"
                         bind:click="handleClickItem1"/>
 
+        <i-input value="{{ product.parameter }}" bind:change="getParameter" title="参数" placeholder="参数"/>
+        <i-input value="{{ product.service }}" bind:change="getService" title="服务" placeholder="服务"/>
+        <i-input value="{{ product.detail }}" bind:change="getDetail" title="详情" placeholder="详情"/>
+
+        <i-input value="{{ product.image }}" bind:change="getImage" title="图片" placeholder="图片"/>
+
     </i-panel>
     <!-- 上传图片-->
     <view class="uploader">
-        <i-button bindtap="doUpload" inline type="primary">+图片</i-button>
-        <view class="uploader-container" wx:if="{{p_image}}">
-            <image class="uploader-image" src="{{p_image}}" mode="aspectFit" bindtap="previewImg"></image>
+        <!--      <i-button bindtap="doUpload" inline type="primary">+图片</i-button>-->
+        <view class="uploader-container" wx:if="{{product.image}}">
+            <image class="uploader-image" src="{{product.image}}" mode="aspectFit" bindtap="previewImg"></image>
         </view>
     </view>
-    <i-button bindtap="onAdd" inline type="primary">添加</i-button>
+    <i-button wx:if="{{ isAdd }}" bindtap="onAdd" inline type="primary">添加</i-button>
+    <i-button wx:if="{{ !isAdd }}" bindtap="onUpdate" inline type="primary">修改</i-button>
 </view>
 
 <view wx:if="{{step === 'view'}}">
@@ -38,11 +46,9 @@
     </view>
 
 
-    <i-card full wx:for="{{queryResult}}" title="{{item.name}}" extra="{{item.price}}"
+    <i-card full wx:for="{{queryResult}}" data-index="{{ index }}" bindtap="toUpdate" title="{{item.name}}" extra="{{item.price}}"
             thumb="{{item.image}}">
         <view slot="content">{{item.type}}</view>
         <view slot="footer">尾部内容</view>
     </i-card>
-
-
 </view>

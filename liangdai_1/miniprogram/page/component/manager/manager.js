@@ -11,10 +11,15 @@ Page({
         cloudPath: '',
         imagePath: '',
         pType: [],
-        p_name: "",
-        p_price: 0,
-        p_image: "",
-        p_type: "",
+        prodect:{
+            name: "",
+            price: null,
+            image: "",
+            type: "",
+            parameter:"",
+            service:"",
+            detail:""
+        },
         queryResult: [],
         noticeID: "",
         notice: "",
@@ -36,17 +41,42 @@ Page({
     },
 
 
+    getParameter({detail}) {
+        var val = detail.detail.value;
+        this.setData({
+            [`product.parameter`]: val
+        });
+    },
+    getService({detail}) {
+        var val = detail.detail.value;
+        this.setData({
+            [`product.service`]: val
+        });
+    },
+    getImage({detail}) {
+        var val = detail.detail.value;
+        this.setData({
+            [`product.image`]: val
+        });
+    },
     getPname({detail}) {
         var val = detail.detail.value;
         this.setData({
-            p_name: val
+            [`product.name`]: val
+        });
+    },
+
+    getDetail({detail}) {
+        var val = detail.detail.value;
+        this.setData({
+            [`product.detail`]: val
         });
     },
 
     getPprice({detail}) {
         var val = detail.detail.value;
         this.setData({
-            p_price: val
+            [`product.price`]: val
         });
     },
 
@@ -107,12 +137,22 @@ Page({
         const name = this.data.pType[detail.index].name
         this.setData({
             visible1: false,
-            p_type: name
+            [`product.type`]: name
         })
     },
     toProduct: function () {
         this.setData({
-            step: "add"
+            step: "add",
+            isAdd:true
+        })
+    },
+    toUpdate:function(res){
+        const that = this
+        const index = res.target.dataset.index
+        this.setData({
+            step: "add",
+            isAdd:false,
+            product: that.data.queryResult[index]
         })
     },
     onAdd: function () {
@@ -120,15 +160,19 @@ Page({
         const that = this
         db.collection('product').add({
             data: {
-                image: this.data.fileID,
-                type: this.data.p_type,
-                name: this.data.p_name,
-                price: this.data.p_price
+                image: this.data.product.image,
+                type: this.data.product.type,
+                name: this.data.product.name,
+                price: this.data.product.price,
+                parameter:this.data.product.parameter,
+                service:this.data.product.service,
+                detail:this.data.product.detail
             },
             success: res => {
                 // 在返回结果中会包含新创建的记录的 _id
                 that.setData({
-                    step: "list"
+                    step: "list",
+                    product:{}
                 })
                 that.onQueryList()
                 wx.showToast({
@@ -142,6 +186,32 @@ Page({
                     title: '新增记录失败'
                 })
                 console.error('[数据库] [新增记录] 失败：', err)
+            }
+        })
+    },
+    onUpdate: function () {
+        const that = this
+        const db = wx.cloud.database()
+        db.collection('product').doc(this.data.product._id).update({
+            data: {
+                image: this.data.product.image,
+                type: this.data.product.type,
+                name: this.data.product.name,
+                price: this.data.product.price,
+                parameter:this.data.product.parameter,
+                service:this.data.product.service,
+                detail:this.data.product.detail
+            },
+            success: res => {
+                app.globalData.notice = that.data.notice
+                app.globalData.checked = that.data.checked
+                that.setData({
+                    step: "list"
+                })
+            },
+            fail: err => {
+                icon: 'none',
+                    console.error('[数据库] [更新记录] 失败：', err)
             }
         })
     },
@@ -194,7 +264,7 @@ Page({
                         this_.setData({
                             fileID: res.fileID,
                             cloudPath: cloudPath,
-                            p_image: filePath
+                            [`product.image`]: filePath
                         })
 
                         /* wx.navigateTo({

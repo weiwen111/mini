@@ -41,7 +41,7 @@
             <view class="newest-list" wx:for="{{productList}}">
                 <navigator url="details/details?id={{filter.jsonToUrlParam(item)}}">
                     <image src="{{item.image}}"></image>
-                    <view class="newest-text"><text>{{item.name}}</text></view>
+                    <view class="newest-text note_item"><text>{{item.name}}</text></view>
                     <view class="newest-text"><text>￥ {{item.price}}</text></view>
                 </navigator>
             </view>

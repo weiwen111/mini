@@ -68,8 +68,11 @@ Page({
         })
     },
     toOrder() {
-        const products = encodeURIComponent(JSON.stringify(this.data.products))
+        //const products = encodeURIComponent(JSON.stringify(this.data.products))
+        const products = this.data.products
         const comment = this.data.comment
+        const total = this.data.total
+        const address = this.data.address
         const createTimes = Date.parse(new Date());
 
         const db = wx.cloud.database()
@@ -77,9 +80,10 @@ Page({
             data: {
                 avatarUrl: app.globalData.avatarUrl,
                 nickName: app.globalData.nickName,
-                address: "",
+                address: address,
                 products: products,
                 comment: comment,
+                total: total,
                 createTimes: createTimes
             },
             success: res => {
