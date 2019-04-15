@@ -44,6 +44,35 @@ Page({
         this.onQueryNotice()
         this.onQueryList()
     },
+    bindGetUserInfo: function (e) {
+        console.log(e.detail.userInfo)
+        if (e.detail.userInfo) {
+            //用户按了允许授权按钮
+            app.globalData.avatarUrl = e.detail.userInfo.avatarUrl
+            app.globalData.nickName = e.detail.userInfo.nickName
+            app.globalData.userInfo = e.detail.userInfo
+            this.setData({
+                needAuth: false
+            })
+        } else {
+            //用户按了拒绝按钮
+        }
+    },
+
+    onGetOpenid: function () {
+        // 调用云函数
+        wx.cloud.callFunction({
+            name: 'login',
+            data: {},
+            success: res => {
+                console.log('[云函数] [login] user openid: ', res.result.openid)
+                app.globalData.openid = res.result.openid
+            },
+            fail: err => {
+                console.error('[云函数] [login] 调用失败', err)
+            }
+        })
+    },
     onQueryNotice: function () {
         const that = this
         const db = wx.cloud.database()
