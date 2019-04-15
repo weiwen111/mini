@@ -2,7 +2,7 @@
 const app = getApp()
 Page({
     data: {
-        thumb: '',
+        avatarUrl: '',
         nickname: '',
         orders: [],
         hasAddress: false,
@@ -10,6 +10,10 @@ Page({
     },
     onLoad() {
         var self = this;
+        self.setData({
+            nickname: app.globalData.nickName,
+            avatarUrl: app.globalData.avatarUrl
+        })
         const db = wx.cloud.database()
         const data = db.collection('order').where({
             _openid: app.globalData.openid
