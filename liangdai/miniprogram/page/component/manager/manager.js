@@ -11,14 +11,14 @@ Page({
         cloudPath: '',
         imagePath: '',
         pType: [],
-        prodect:{
+        prodect: {
             name: "",
             price: null,
             image: "",
             type: "",
-            parameter:"",
-            service:"",
-            detail:""
+            parameter: "",
+            service: "",
+            detail: ""
         },
         queryResult: [],
         noticeID: "",
@@ -143,36 +143,38 @@ Page({
     toProduct: function () {
         this.setData({
             step: "add",
-            isAdd:true
+            isAdd: true
         })
     },
-    toUpdate:function(res){
+    toUpdate: function (res) {
         const that = this
         const index = res.target.dataset.index
         this.setData({
             step: "add",
-            isAdd:false,
+            isAdd: false,
             product: that.data.queryResult[index]
         })
     },
     onAdd: function () {
         const db = wx.cloud.database()
         const that = this
+        const createTimes = Date.parse(new Date());
         db.collection('product').add({
             data: {
                 image: this.data.product.image,
                 type: this.data.product.type,
                 name: this.data.product.name,
                 price: this.data.product.price,
-                parameter:this.data.product.parameter,
-                service:this.data.product.service,
-                detail:this.data.product.detail
+                parameter: this.data.product.parameter,
+                service: this.data.product.service,
+                detail: this.data.product.detail,
+                createTimes: createTimes
             },
             success: res => {
                 // 在返回结果中会包含新创建的记录的 _id
                 that.setData({
                     step: "list",
-                    product:{}
+                    product: {}
                 })
                 that.onQueryList()
                 wx.showToast({
@@ -192,15 +194,18 @@ Page({
     onUpdate: function () {
         const that = this
         const db = wx.cloud.database()
+        const modifyTimes = Date.parse(new Date());
         db.collection('product').doc(this.data.product._id).update({
             data: {
                 image: this.data.product.image,
                 type: this.data.product.type,
                 name: this.data.product.name,
                 price: this.data.product.price,
-                parameter:this.data.product.parameter,
-                service:this.data.product.service,
-                detail:this.data.product.detail
+                parameter: this.data.product.parameter,
+                service: this.data.product.service,
+                detail: this.data.product.detail,
+                createTimes: this.data.product.createTimes,
+                modifyTimes: modifyTimes
             },
             success: res => {
                 app.globalData.notice = that.data.notice
