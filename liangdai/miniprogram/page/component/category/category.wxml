@@ -19,7 +19,7 @@
                     <view class="product-list" wx:for="{{productList}}" wx:key="index" >
                         <navigator url="../details/details?id={{filter.jsonToUrlParam(item)}}">
                             <image src="{{item.image}}"></image>
-                            <view class="classname note_item" style="height: 30px"><text class="">上课的肌肤里加水淀粉来上课的弗兰克的身份{{item.name}}</text></view>
+                            <view class="classname note_item" style="height: 30px"><text class="">{{item.name}}</text></view>
                         </navigator>
                     </view>
                 </view>
