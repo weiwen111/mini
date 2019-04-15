@@ -1,5 +1,10 @@
 <wxs module="filter" src="../common/utils.wxs"></wxs>
-<view class="main">
+
+<!-- 授权登录 -->
+<i-button wx:if="{{needAuth}}" type="success" shape="circle" size="large" open-type="getUserInfo"
+          bindgetuserinfo="bindGetUserInfo">授权登录
+</i-button>
+<view wx:if="{{!needAuth}}"  class="main">
 <!--    <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
         <block wx:for="{{imgUrls}}" wx:key="{{index}}">
             <swiper-item>

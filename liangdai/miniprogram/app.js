@@ -3,6 +3,7 @@ App({
     globalData: {
         avatarUrl: "/image/user-unlogin.png",
         nickName: "陌生莲子",
+        userInfo: {},
         openid: null,
         pType: [{id: "jh", name: "精华"},
             {id: "ys", name: "眼霜"},
