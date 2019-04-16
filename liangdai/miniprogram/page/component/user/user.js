@@ -17,7 +17,7 @@ Page({
         const db = wx.cloud.database()
         const data = db.collection('order').where({
             _openid: app.globalData.openid
-        }).orderBy('createTime', 'desc').get({
+        }).orderBy('createTimes', 'desc').get({
             success: res => {
                 self.setData({
                     orders: res.data

@@ -1,12 +1,23 @@
+<wxs module="filter" src="../../common/utils.wxs"></wxs>
 <view class="main">
-    <navigator url="../address/address">
-        <view wx:if="{{hasAddress}}" class="orders-address">
+    <view wx:if="{{isView}}">
+        <view>
             <text class="orders-address-name">收货人: {{address.name}}</text>
             <text class="orders-address-phone">电话: {{address.phone}}</text>
             <view class="orders-address-detail">{{address.detail}}</view>
         </view>
-        <view wx:else class="orders-no-address">添加收货地址</view>
-    </navigator>
+    </view>
+    <view wx:else>
+        <navigator url="../address/address">
+            <view wx:if="{{hasAddress}}" class="orders-address">
+                <text class="orders-address-name">收货人: {{address.name}}</text>
+                <text class="orders-address-phone">电话: {{address.phone}}</text>
+                <view class="orders-address-detail">{{address.detail}}</view>
+            </view>
+            <view wx:else class="orders-no-address">添加收货地址</view>
+        </navigator>
+    </view>
+
 
     <view class="orders-box">
         <view wx:for="{{products}}" wx:key="index" class="orders-list">
@@ -17,11 +28,12 @@
         </view>
     </view>
     <i-panel title="附言">
-        <i-input value="{{ comment }}" bind:change="getComment" type="textarea" placeholder="请输入(最多50字)" maxlength="50"/>
+        <i-input value="{{ comment }}" disabled="{{isView}}" bind:change="getComment" type="textarea"
+                 placeholder="请输入(最多50字)" maxlength="50"/>
     </i-panel>
 
     <view class="orders-footer">
         <view class="orders-footer-total">付款合计：￥{{total}}</view>
-        <view class="orders-footer-btn" bindtap="toOrder">确认下单</view>
+        <view class="orders-footer-btn" wx:if="{{!isView}}" bindtap="toOrder">确认下单</view>
     </view>
 </view>

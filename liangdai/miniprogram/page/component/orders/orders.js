@@ -4,36 +4,63 @@ Page({
     data: {
         address: {},
         hasAddress: false,
+        isView: false,
         total: 0,
         comment: "",
         products: []
     },
 
-    onReady() {
-        const cartA = app.globalData.cart
-        const list = []
-        for (var k in cartA) {
-            if (cartA[k].selected) {
-                list.push(cartA[k])
+    onLoad(option) {
+        if (option && option.order) {
+            // 订单预览
+            const order = JSON.parse(decodeURIComponent(option.order))
+            this.setData({
+                products: order.products,
+                address: order.address,
+                comment:order.comment,
+                isView: true
+            })
+        } else {
+            // 订单确认
+            const cartA = app.globalData.cart
+            const list = []
+            for (var k in cartA) {
+                if (cartA[k].selected) {
+                    list.push(cartA[k])
+                }
             }
+            this.setData({
+                products: list,
+                isView: false
+            })
+            const self = this;
+            wx.getStorage({
+                key: 'address',
+                success(res) {
+                    self.setData({
+                        address: res.data,
+                        hasAddress: true
+                    })
+                }
+            })
+            this.getTotalPrice();
         }
-        this.setData({
-            products: list
-        })
         this.getTotalPrice();
     },
 
     onShow: function () {
-        const self = this;
-        wx.getStorage({
-            key: 'address',
-            success(res) {
-                self.setData({
-                    address: res.data,
-                    hasAddress: true
-                })
-            }
-        })
+        if (!this.data.isView) {
+            const self = this;
+            wx.getStorage({
+                key: 'address',
+                success(res) {
+                    self.setData({
+                        address: res.data,
+                        hasAddress: true
+                    })
+                }
+            })
+        }
     },
 
     /**

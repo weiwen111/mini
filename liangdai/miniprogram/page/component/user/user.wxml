@@ -31,7 +31,7 @@
             <view class="orders-detail" wx:for="{{item.products}}" wx:for-item="pt">
                 <image src="{{pt.image}}"></image>
                 <view class="">{{pt.name}}</view>
-                <view class="">{{pt.num}}</view>
+                <view class="">{{pt.price}}×{{pt.num}}</view>
                 <text class="orders-status">{{item.status}}</text>
             </view>
             <view class="orders-footer">

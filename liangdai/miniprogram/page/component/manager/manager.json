@@ -1,6 +1,6 @@
 {
   "component": true,
-
+  "navigationBarTitleText": "产品管理",
   "usingComponents": {
     "i-button": "../../../dist/button/index",
     "i-notice-bar": "../../../dist/notice-bar/index",
@@ -8,7 +8,7 @@
     "i-card": "../../../dist/card/index",
     "i-radio-group": "../../../dist/radio-group/index",
     "i-radio": "../../../dist/radio/index",
-    "i-input":"../../../dist/input/index",
+    "i-input": "../../../dist/input/index",
     "i-action-sheet": "../../../dist/action-sheet/index",
     "i-button": "../../../dist/button/index",
     "i-message": "../../../dist/message/index"

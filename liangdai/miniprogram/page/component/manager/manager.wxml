@@ -1,6 +1,6 @@
 <wxs module="filter" src="../../common/utils.wxs"></wxs>
 <view wx:if="{{step === 'add'}}">
-    <i-panel title="基础用法">
+    <i-panel title="产品信息">
         <i-input value="{{ product.name }}" bind:change="getPname" title="名称" autofocus placeholder="名称"/>
         <i-input value="{{ product.price }}" bind:change="getPprice" type="number" title="价格" placeholder="价格"/>
         <i-input value="{{ product.type }}" disabled bindtap="selectType" title="分类" placeholder="分类"/>
@@ -31,7 +31,7 @@
 </view>
 
 <view wx:if="{{step === 'notice'}}">
-    <i-panel title="基础用法">
+    <i-panel title="这是通告">
         <i-input value="{{ notice }}" bind:change="getNotice" autofocus type="textarea" title="通告"
                  placeholder="请输入通告(最多50字)" maxlength="50"/>
         <i-radio value="启用" checked="{{checked}}" bindchange="handleNotice"></i-radio>
@@ -46,7 +46,8 @@
     </view>
 
 
-    <i-card full wx:for="{{queryResult}}" data-index="{{ index }}" bindtap="toUpdate" title="{{item.name}}" extra="{{item.price}}"
+    <i-card full wx:for="{{queryResult}}" data-index="{{ index }}" bindtap="toUpdate" title="{{item.name}}"
+            extra="{{item.price}}"
             thumb="{{item.image}}">
         <view slot="content">{{item.type}}</view>
         <view slot="footer">尾部内容</view>

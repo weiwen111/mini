@@ -15,7 +15,7 @@ Page({
     onLoad: function (options) {
         const self = this
         const db = wx.cloud.database()
-        const data = db.collection('order').orderBy('createTime', 'desc').get({
+        const data = db.collection('order').orderBy('createTimes', 'desc').get({
             success: res => {
                 self.setData({
                     orders: res.data
