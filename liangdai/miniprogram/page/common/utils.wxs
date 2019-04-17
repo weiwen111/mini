@@ -1,6 +1,6 @@
 var filter = {
     numberToFix: function (value) {
-        return value.toFixed(1)
+        return value.toFixed(2) // 此处2为保留两位小数，保留几位小数，这里写几
     },
     jsonToUrlParam: function (obj) {
         return encodeURIComponent(JSON.stringify(obj))
