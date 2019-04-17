@@ -118,6 +118,7 @@ Page({
                 this.setData({
                     counterId: res._id
                 })
+                app.globalData.fromOrder = true
                 wx.showModal({
                     title: '提示',
                     content: '下单成功',

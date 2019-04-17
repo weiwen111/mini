@@ -9,11 +9,36 @@ Page({
         address: {}
     },
     onLoad() {
+        app.globalData.fromOrder = false
         var self = this;
         self.setData({
             nickname: app.globalData.nickName,
             avatarUrl: app.globalData.avatarUrl
         })
+        getOrders()
+    },
+    onShow() {
+        if (app.globalData.fromOrder) {
+            // 下单页面过来，刷新订单列表
+            getOrders()
+            app.globalData.fromOrder = false
+        }
+        var self = this;
+        /**
+         * 获取本地缓存 地址信息
+         */
+        wx.getStorage({
+            key: 'address',
+            success: function (res) {
+                self.setData({
+                    hasAddress: true,
+                    address: res.data
+                })
+            }
+        })
+    },
+    getOrders() {
+        var self = this;
         const db = wx.cloud.database()
         const data = db.collection('order').where({
             _openid: app.globalData.openid
@@ -32,44 +57,6 @@ Page({
                 console.error('[数据库] [查询记录] 失败：', err)
             }
         });
-        /*   /!**
-            * 获取用户信息
-            *!/
-           wx.getUserInfo({
-             success: function(res){
-               self.setData({
-                 thumb: res.userInfo.avatarUrl,
-                 nickname: res.userInfo.nickName
-               })
-             }
-           }),
-
-           /!**
-            * 发起请求获取订单列表信息
-            *!/
-           wx.request({
-             url: 'http://www.gdfengshuo.com/api/wx/orders.txt',
-             success(res){
-               self.setData({
-                 orders: res.data
-               })
-             }
-           })*/
-    },
-    onShow() {
-        var self = this;
-        /**
-         * 获取本地缓存 地址信息
-         */
-        wx.getStorage({
-            key: 'address',
-            success: function (res) {
-                self.setData({
-                    hasAddress: true,
-                    address: res.data
-                })
-            }
-        })
     },
     /**
      * 发起支付请求

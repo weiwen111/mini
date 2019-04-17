@@ -34,9 +34,9 @@ Page({
         this.onQueryList()
         this.setData({
             pType: app.globalData.pType,
-            notice: app.globalData.notice,
-            checked: app.globalData.checked,
-            noticeID: app.globalData.noticeID
+            notice: app.globalData.notice.notice,
+            checked: app.globalData.notice.checked,
+            noticeID: app.globalData.notice._id
         })
     },
 
@@ -108,8 +108,8 @@ Page({
                 notice: that.data.notice
             },
             success: res => {
-                app.globalData.notice = that.data.notice
-                app.globalData.checked = that.data.checked
+                app.globalData.notice.notice = that.data.notice
+                app.globalData.notice.checked = that.data.checked
                 that.setData({
                     step: "list"
                 })
@@ -208,8 +208,6 @@ Page({
                 modifyTimes: modifyTimes
             },
             success: res => {
-                app.globalData.notice = that.data.notice
-                app.globalData.checked = that.data.checked
                 that.setData({
                     step: "list"
                 })
