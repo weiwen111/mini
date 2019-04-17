@@ -17,7 +17,7 @@ Page({
             this.setData({
                 products: order.products,
                 address: order.address,
-                comment:order.comment,
+                comment: order.comment,
                 isView: true
             })
         } else {
@@ -101,6 +101,11 @@ Page({
         const total = this.data.total
         const address = this.data.address
         const createTimes = Date.parse(new Date());
+
+        products.forEach(product => {
+            delete app.globalData.cart[product._id]
+        })
+
 
         const db = wx.cloud.database()
         db.collection('order').add({

@@ -164,7 +164,7 @@ Page({
                 image: this.data.product.image,
                 type: this.data.product.type,
                 name: this.data.product.name,
-                price: this.data.product.price.toFixed(2),
+                price: parseInt(this.data.product.price).toFixed(2),
                 parameter: this.data.product.parameter,
                 service: this.data.product.service,
                 detail: this.data.product.detail,
@@ -200,7 +200,7 @@ Page({
                 image: this.data.product.image,
                 type: this.data.product.type,
                 name: this.data.product.name,
-                price: this.data.product.price.toFixed(2),
+                price: parseInt(this.data.product.price).toFixed(2),
                 parameter: this.data.product.parameter,
                 service: this.data.product.service,
                 detail: this.data.product.detail,
@@ -208,6 +208,7 @@ Page({
                 modifyTimes: modifyTimes
             },
             success: res => {
+                that.onQueryList()
                 that.setData({
                     step: "list"
                 })

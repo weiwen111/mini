@@ -17,10 +17,13 @@ Page({
             list.push(cartA[k])
         }
 
+        this.setData({
+            carts: list,
+            hasList: false
+        });
         if (list.length > 0) {
             this.setData({
-                hasList: true,
-                carts: list
+                hasList: true
             });
         }
 

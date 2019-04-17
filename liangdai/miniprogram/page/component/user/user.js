@@ -6,21 +6,28 @@ Page({
         nickname: '',
         orders: [],
         hasAddress: false,
-        address: {}
+        address: {},
+        isAdmin: false
     },
     onLoad() {
+        if (app.globalData.notice.openid.indexOf(app.globalData.openid) >= 0) {
+            this.setData({
+                isAdmin: true
+            })
+            console.log("isadmin")
+        }
         app.globalData.fromOrder = false
         var self = this;
         self.setData({
             nickname: app.globalData.nickName,
             avatarUrl: app.globalData.avatarUrl
         })
-        getOrders()
+        this.getOrders()
     },
     onShow() {
         if (app.globalData.fromOrder) {
             // 下单页面过来，刷新订单列表
-            getOrders()
+            this.getOrders()
             app.globalData.fromOrder = false
         }
         var self = this;
