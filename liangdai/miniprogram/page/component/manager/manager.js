@@ -20,6 +20,12 @@ Page({
             service: "",
             detail: ""
         },
+        verifyField: [
+            {id: "prodect.name", msg: "商品名称"},
+            {id: "prodect.price", msg: "商品价格"},
+            {id: "prodect.image", msg: "商品图片"},
+            {id: "prodect.type", msg: "商品类型"}
+        ],
         queryResult: [],
         noticeID: "",
         notice: "",
@@ -155,19 +161,50 @@ Page({
             product: that.data.queryResult[index]
         })
     },
+
+    verifyField() {
+        const field = this.data.verifyField
+        const that = this.data
+        for (let i in field) {
+            const f = field[i].name.split(".")
+            const msg = field[i].msg
+            if (f.length == 1 && this.isBlank(that[f[0]])) {
+
+
+            } else if (f.length == 2) {
+                const value = that[f[0]][f[1]]
+            } else if (f.length == 3) {
+                const value = that[f[0]][f[1]][f[2]]
+            }
+
+        }
+    },
+    isBlank(str) {
+        if (Object.prototype.toString.call(str) === '[object Undefined]') {
+            return true
+        } else if (
+            Object.prototype.toString.call(str) === '[object String]' ||
+            Object.prototype.toString.call(str) === '[object Array]') {
+            return str.length == 0 ? true : false
+        } else if (Object.prototype.toString.call(str) === '[object Object]') {
+            return JSON.stringify(str) == '{}' ? true : false
+        } else {
+            return true
+        }
+    },
     onAdd: function () {
         const db = wx.cloud.database()
         const that = this
         const createTimes = Date.parse(new Date());
         db.collection('product').add({
             data: {
-                image: this.data.product.image,
-                type: this.data.product.type,
-                name: this.data.product.name,
-                price: parseInt(this.data.product.price).toFixed(2),
-                parameter: this.data.product.parameter,
-                service: this.data.product.service,
-                detail: this.data.product.detail,
+                image: that.data.product.image,
+                type: that.data.product.type,
+                name: that.data.product.name,
+                price: parseInt(that.data.product.price).toFixed(2),
+                parameter: that.data.product.parameter,
+                service: that.data.product.service,
+                detail: that.data.product.detail,
                 createTimes: createTimes
             },
             success: res => {
@@ -197,14 +234,14 @@ Page({
         const modifyTimes = Date.parse(new Date());
         db.collection('product').doc(this.data.product._id).update({
             data: {
-                image: this.data.product.image,
-                type: this.data.product.type,
-                name: this.data.product.name,
-                price: parseInt(this.data.product.price).toFixed(2),
-                parameter: this.data.product.parameter,
-                service: this.data.product.service,
-                detail: this.data.product.detail,
-                createTimes: this.data.product.createTimes,
+                image: that.data.product.image,
+                type: that.data.product.type,
+                name: that.data.product.name,
+                price: parseInt(that.data.product.price).toFixed(2),
+                parameter: that.data.product.parameter,
+                service: that.data.product.service,
+                detail: that.data.product.detail,
+                createTimes: that.data.product.createTimes,
                 modifyTimes: modifyTimes
             },
             success: res => {
@@ -224,7 +261,7 @@ Page({
         // 查询当前用户所有的 counters
         db.collection('product').where({
             _openid: this.data.openid
-        }).get({
+        }).orderBy('modifyTimes', 'desc').orderBy('createTimes', 'desc').get({
             success: res => {
                 this.setData({
                     // queryResult: JSON.stringify(res.data, null, 2)
