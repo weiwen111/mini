@@ -38,8 +38,9 @@
                 <view class="">{{pt.price}}×{{pt.num}}</view>
                 <text class="orders-status">{{item.status}}</text>
             </view>
-            <view class="orders-footer">
-                <text>订单价格：￥{{item.total}} {{filter.formatTime(item.createTimes,'Y/M/D h:m:s')}}</text>
+            <view class="orders-footer flex-wrp-row item">
+                <text class="item-left flex-wrp-row">订单价格：￥{{item.total}} </text>
+                <text class="item-right flex-wrp-row">{{filter.formatTime(item.createTimes)}}</text>
                 <!--<button size="mini" class="orders-btn" bindtap="payOrders">付款</button>-->
             </view>
         </view>

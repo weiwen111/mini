@@ -148,7 +148,7 @@ Page({
     },
     toUpdate: function (res) {
         const that = this
-        const index = res.target.dataset.index
+        const index = res.currentTarget.dataset.index
         this.setData({
             step: "add",
             isAdd: false,
