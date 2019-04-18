@@ -1,37 +1,22 @@
 const app = getApp()
 Page({
     data: {
-        category: [
-            {name: '果味', id: 'guowei'},
-            {name: '蔬菜', id: 'shucai'},
-            {name: '炒货', id: 'chaohuo'},
-            {name: '点心', id: 'dianxin'},
-            {name: '粗茶', id: 'cucha'},
-            {name: '淡饭', id: 'danfan'}
-        ],
+        category: [],
         productList: [],
         curIndex: 0,
         categoryName: "",
+        categoryIcon: "",
         isScroll: false,
         toView: 'guowei'
     },
     onReady() {
         var self = this;
-
         self.setData({
             category: app.globalData.pType,
-            categoryName: this.data.category[0].name
+            categoryName: app.globalData.pType[0].name,
+            categoryIcon: app.globalData.pType[0].icon
         })
-        self.onQueryList(this.data.category[0].name, self)
-        /*wx.request({
-            url:'http://www.gdfengshuo.com/api/wx/cate-detail.txt',
-            success(res){
-                self.setData({
-                    detail : res.data
-                })
-            }
-        });*/
-
+        self.onQueryList(app.globalData.pType[0].name, self)
     },
     onQueryList: function (type, _this) {
         const db = wx.cloud.database()
@@ -61,12 +46,14 @@ Page({
             isScroll: true
         })
         const categoryName = self.data.category[e.target.dataset.index].name
+        const categoryIcon = self.data.category[e.target.dataset.index].icon
         setTimeout(function () {
             self.onQueryList(categoryName, self)
             self.setData({
                 toView: e.target.dataset.id,
                 curIndex: e.target.dataset.index,
-                categoryName: categoryName
+                categoryName: categoryName,
+                categoryIcon: categoryIcon
             })
         }, 0)
         setTimeout(function () {

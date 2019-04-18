@@ -11,6 +11,7 @@ Page({
     },
     onLoad() {
         if (app.globalData.notice.openid.indexOf(app.globalData.openid) >= 0) {
+            // 判断是否admin用户
             this.setData({
                 isAdmin: true
             })
@@ -42,6 +43,12 @@ Page({
                     address: res.data
                 })
             }
+        })
+    },
+    clickOrder() {
+        // 是否显示订单列表
+        this.setData({
+            orderListShow: !this.data.orderListShow
         })
     },
     getOrders() {

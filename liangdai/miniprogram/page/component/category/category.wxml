@@ -10,7 +10,7 @@
          <block >
             <view class="cate-box">
                 <view class="cate-banner">
-                    <image src="https://www.dfs.com/medias/Price-Match-50-50-card.jpg"></image>
+                    <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2648132078,2366815783&fm=26&gp=0.jpg"></image>
                 </view>
                 <view class="cate-title">
                     <text>{{categoryName}}</text>

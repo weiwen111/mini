@@ -29,8 +29,8 @@
         </view>-->
     </view>
     <view class="orders-box">
-        <view class="orders">我的订单</view>
-        <view class="orders-list" wx:for="{{orders}}" wx:key="index">
+        <view class="orders" bindtap="clickOrder">我的订单</view>
+        <view class="orders-list" wx:if="{{ orderListShow }}" wx:for="{{orders}}" wx:key="index">
             <view class="orders-number">订单编号：{{item._id}}</view>
             <view class="orders-detail" wx:for="{{item.products}}" wx:for-item="pt">
                 <image src="{{pt.image}}"></image>
