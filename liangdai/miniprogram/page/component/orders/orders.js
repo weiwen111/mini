@@ -7,6 +7,7 @@ Page({
         isView: false,
         total: 0,
         comment: "",
+        orderId: null,
         products: []
     },
 
@@ -18,6 +19,7 @@ Page({
                 products: order.products,
                 address: order.address,
                 comment: order.comment,
+                orderId: order._id,
                 isView: true
             })
         } else {
@@ -82,6 +84,29 @@ Page({
             comment: val
         });
     },
+    changeOrderStatus(res) {
+        const status = res.currentTarget.dataset.status
+        const that = this
+        const modifyTimes = Date.parse(new Date());
+
+        wx.cloud.callFunction({
+            name: 'dbupdate',
+            data:{
+                _id: that.data.orderId,
+                table: "order",
+                dataset: {
+                    status: status,
+                    modifyTimes: modifyTimes
+                }
+            },
+            success: res => {
+                console.log('更新数据成功')
+                app.globalData.orderUpdate = true
+                wx.navigateBack();
+            }
+        })
+    },
+
     toPay() {
         wx.showModal({
             title: '提示',

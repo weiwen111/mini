@@ -1,7 +1,7 @@
 <wxs module="filter" src="../../common/utils.wxs"></wxs>
 <view class="main">
     <view wx:if="{{isView}}">
-        <view>
+        <view style="padding-left:30rpx">
             <text class="orders-address-name">收货人: {{address.name}}</text>
             <text class="orders-address-phone">电话: {{address.phone}}</text>
             <view class="orders-address-detail">{{address.detail}}</view>
@@ -31,6 +31,13 @@
         <i-input value="{{ comment }}" disabled="{{isView}}" bind:change="getComment" type="textarea"
                  placeholder="请输入(最多50字)" maxlength="50"/>
     </i-panel>
+
+    <i-panel title="修改订单状态">
+        <i-button bind:click="changeOrderStatus" data-status="待发货" inline type="primary">待发货</i-button>
+        <i-button bind:click="changeOrderStatus" data-status="已发货" inline type="success">已发货</i-button>
+        <i-button bind:click="changeOrderStatus" data-status="取消" inline type="error">取消</i-button>
+    </i-panel>
+
 
     <view class="orders-footer">
         <view class="orders-footer-total">付款合计：￥{{total}}</view>

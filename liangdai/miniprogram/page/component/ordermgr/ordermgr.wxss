@@ -118,3 +118,23 @@
     background: #b42f2d;
     color: #fff;
 }
+
+.flex-wrp-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.item {
+    padding: 20rpx;
+    position: relative;
+}
+
+.item-left {
+    flex: 1;
+    align-items:center;
+}
+
+.item-right {
+    position: relative;
+    align-items:center;
+}

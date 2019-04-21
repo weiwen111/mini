@@ -107,7 +107,30 @@ Page({
 
     resetNotice: function () {
         const that = this
-        const db = wx.cloud.database()
+        wx.cloud.callFunction({
+            name: 'dbupdate',
+            data: {
+                _id: that.data.noticeID,
+                table: "notice",
+                dataset: {
+                    checked: that.data.checked,
+                    notice: that.data.notice
+                }
+            },
+            success: res => {
+                app.globalData.notice.notice = that.data.notice
+                app.globalData.notice.checked = that.data.checked
+                that.setData({
+                    step: "list"
+                })
+            },
+            fail: err => {
+                icon: 'none',
+                    console.error('[数据库] [更新记录] 失败：', err)
+            }
+        })
+
+        /*const db = wx.cloud.database()
         db.collection('notice').doc(this.data.noticeID).update({
             data: {
                 checked: that.data.checked,
@@ -124,7 +147,7 @@ Page({
                 icon: 'none',
                     console.error('[数据库] [更新记录] 失败：', err)
             }
-        })
+        })*/
     },
 
     selectType() {
@@ -230,7 +253,37 @@ Page({
     },
     onUpdate: function () {
         const that = this
-        const db = wx.cloud.database()
+        const modifyTimes = Date.parse(new Date());
+        wx.cloud.callFunction({
+            name: 'dbupdate',
+            data: {
+                _id: that.data.product._id,
+                table: "product",
+                dataset: {
+                    image: that.data.product.image,
+                    type: that.data.product.type,
+                    name: that.data.product.name,
+                    price: parseInt(that.data.product.price).toFixed(2),
+                    parameter: that.data.product.parameter,
+                    service: that.data.product.service,
+                    detail: that.data.product.detail,
+                    createTimes: that.data.product.createTimes,
+                    modifyTimes: modifyTimes
+                }
+            },
+            success: res => {
+                that.onQueryList()
+                that.setData({
+                    step: "list"
+                })
+            },
+            fail: err => {
+                console.error('[数据库] [更新记录] 失败：', err)
+            }
+        })
+
+
+    /*    const db = wx.cloud.database()
         const modifyTimes = Date.parse(new Date());
         db.collection('product').doc(this.data.product._id).update({
             data: {
@@ -254,7 +307,7 @@ Page({
                 icon: 'none',
                     console.error('[数据库] [更新记录] 失败：', err)
             }
-        })
+        })*/
     },
     onQueryList: function () {
         const db = wx.cloud.database()
