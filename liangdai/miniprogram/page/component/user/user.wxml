@@ -1,10 +1,13 @@
 <wxs module="filter" src="../../common/utils.wxs"></wxs>
 <view class="main">
-    <view class="header">
-        <image src="{{avatarUrl}}" class="thumb"></image>
-        <text class="nickname">{{nickname}}</text>
-        <text class="about">关于我们</text>
-    </view>
+    <navigator url="../about/about">
+        <view class="header">
+            <image src="{{avatarUrl}}" class="thumb"></image>
+            <text class="nickname">{{nickname}}</text>
+            <text class="about">关于我们</text>
+        </view>
+    </navigator>
+
     <view wx:if="{{isAdmin}}">
         <view class="address-box">
             <view class="address-manage">

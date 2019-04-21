@@ -10,7 +10,8 @@
     "page/component/list/list",
     "page/component/search/search",
     "page/component/manager/manager",
-    "page/component/ordermgr/ordermgr"
+    "page/component/ordermgr/ordermgr",
+    "page/component/about/about"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

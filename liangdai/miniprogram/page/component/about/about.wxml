@@ -1,0 +1,13 @@
+<view class="i-divider-demo">
+    <view class="one-tag">关于小程序</view>
+    <view class="i-divider-demo-des">这是莲莲的个人代购小程序，辛勤的莲莲基本上每周都会进行代购</view>
+    <view class="i-divider-mart">
+        <i-divider content="您可以扫码给莲莲加油" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+    </view>
+    <view >
+        <image style="max-height: 250px; max-width: 250px" src="/image/shoukuan.jpg" data-src="/image/shoukuan.jpg" bindtap="previewImage"></image>
+    </view>
+    <view class="one-tag">关于作者</view>
+    <view class="i-divider-demo-des">zwm</view>
+
+</view>
