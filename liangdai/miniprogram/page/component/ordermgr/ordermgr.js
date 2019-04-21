@@ -20,6 +20,11 @@ Page({
     },
     onShow() {
         if (app.globalData.orderUpdate) {
+            app.globalData.orderUpdate = false
+            this.setData({
+                orders: [],
+                pageIndex :0,
+            })
             this.queryOrderList()
         }
 

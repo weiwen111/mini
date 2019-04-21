@@ -5,7 +5,10 @@
           bindgetuserinfo="bindGetUserInfo">授权登录
 </i-button>
 <view wx:if="{{!needAuth}}"  class="main">
-   <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
+    <i-notice-bar wx:if="{{checked}}" icon="systemprompt" loop speed="2000">
+        {{notice}}
+    </i-notice-bar>
+    <swiper indicator-dots="true" autoplay="true" interval="{{interval}}" duration="{{duration}}" circular="true">
         <block wx:for="{{imgUrls}}" wx:key="{{index}}">
             <swiper-item>
                 <image src="{{item}}" class="slide-image" width="100%"/>

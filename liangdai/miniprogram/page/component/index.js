@@ -106,12 +106,9 @@ Page({
     onQueryList: function () {
         const db = wx.cloud.database()
         // 查询当前用户所有的 counters
-        db.collection('product').where({
-            _openid: this.data.openid
-        }).get({
+        db.collection('product').limit(6).orderBy('createTimes', 'desc').get({
             success: res => {
                 this.setData({
-                    // productList: JSON.stringify(res.data, null, 2)
                     productList: res.data
                 })
                 console.log('[数据库] [查询记录] 成功: ', res)

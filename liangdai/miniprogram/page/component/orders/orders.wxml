@@ -32,7 +32,7 @@
                  placeholder="请输入(最多50字)" maxlength="50"/>
     </i-panel>
 
-    <i-panel title="修改订单状态">
+    <i-panel wx:if="{{isView}}" title="修改订单状态">
         <i-button bind:click="changeOrderStatus" data-status="待发货" inline type="primary">待发货</i-button>
         <i-button bind:click="changeOrderStatus" data-status="已发货" inline type="success">已发货</i-button>
         <i-button bind:click="changeOrderStatus" data-status="取消" inline type="error">取消</i-button>

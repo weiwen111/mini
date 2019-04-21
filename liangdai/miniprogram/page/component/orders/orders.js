@@ -75,7 +75,7 @@ Page({
             total += products[i].num * products[i].price;
         }
         this.setData({
-            total: total
+            total: total.toFixed(2)
         })
     },
     getComment({detail}) {
@@ -102,7 +102,15 @@ Page({
             success: res => {
                 console.log('更新数据成功')
                 app.globalData.orderUpdate = true
-                wx.navigateBack();
+                wx.showModal({
+                    title: '提示',
+                    content: '修改成功',
+                    text: 'center',
+                    complete() {
+                        wx.navigateBack();
+                    }
+                })
+
             }
         })
     },
@@ -119,8 +127,34 @@ Page({
             }
         })
     },
+    volidate() {
+        let msg = ""
+        if(!this.data.address.detail || this.data.address.detail.length==0){
+            msg="请输入详细地址"
+        }else if(!this.data.address.name || this.data.address.name.length==0){
+            msg="请输入收货人"
+        }else if(!this.data.address.phone || this.data.address.phone.length==0){
+            msg="请输入收货电话"
+        }
+
+        if(msg !=""){
+            wx.showModal({
+                title: '提示',
+                content: msg,
+                text: 'center',
+                complete() {
+                    return false
+                }
+            })
+            return false
+        }
+        return true
+    },
     toOrder() {
         //const products = encodeURIComponent(JSON.stringify(this.data.products))
+        if(!this.volidate()){
+            return
+        }
         const products = this.data.products
         const comment = this.data.comment
         const total = this.data.total

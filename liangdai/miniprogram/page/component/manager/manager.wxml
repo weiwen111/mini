@@ -34,6 +34,9 @@
 
 <view wx:if="{{step === 'notice'}}">
     <i-panel title="这是通告">
+        <i-notice-bar icon="systemprompt" loop speed="2000">
+            {{notice}}
+        </i-notice-bar>
         <i-input value="{{ notice }}" bind:change="getNotice" autofocus type="textarea" title="通告"
                  placeholder="请输入通告(最多50字)" maxlength="50"/>
         <i-radio value="启用" checked="{{checked}}" bindchange="handleNotice"></i-radio>
