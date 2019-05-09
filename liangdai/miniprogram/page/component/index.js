@@ -3,9 +3,9 @@ Page({
     data: {
         needAuth: false,
         imgUrls: [
-            '/image/b1.jpg',
-            '/image/b2.jpg',
-            '/image/b3.jpg'
+            'https://6c69-liangdai-3338c2-1258956930.tcb.qcloud.la/my-image.jpg',
+            'https://6c69-liangdai-3338c2-1258956930.tcb.qcloud.la/my-image.jpg?sign=1996f41cb031070d3a5ad3bbff070597&t=1557401936',
+            'https://6c69-liangdai-3338c2-1258956930.tcb.qcloud.la/my-image555.jpg'
         ],
         indicatorDots: false,
         autoplay: false,

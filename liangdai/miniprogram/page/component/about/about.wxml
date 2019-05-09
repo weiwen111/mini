@@ -5,7 +5,7 @@
         <i-divider content="您可以扫码给莲莲加油" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
     </view>
     <view >
-        <image style="max-height: 250px; max-width: 250px" src="/image/shoukuan.jpg" data-src="/image/shoukuan.jpg" bindtap="previewImage"></image>
+        <image style="max-height: 250px; max-width: 250px" src="https://6c69-liangdai-3338c2-1258956930.tcb.qcloud.la/shoukuan.jpg" data-src="https://6c69-liangdai-3338c2-1258956930.tcb.qcloud.la/shoukuan.jpg" bindtap="previewImage"></image>
     </view>
     <view class="one-tag">关于作者</view>
     <view class="i-divider-demo-des">zwm</view>

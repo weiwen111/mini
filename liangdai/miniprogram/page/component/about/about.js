@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        imglist:['/image/shoukuan.jpg']
+        imglist:['https://6c69-liangdai-3338c2-1258956930.tcb.qcloud.la/shoukuan.jpg']
     },
 
     /**
